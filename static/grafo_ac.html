@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gráfico de nodos con vis.js y Slider</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css"
+    />
+
+
+    <link rel="stylesheet" href=
+"https://unpkg.com/@primer/css@^18.0.0/dist/primer.css" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:8000/static/vis.css" />
+  </head>
+  <body>
+    
+
+
+
+
+    
+    <div class="layout">
+      
+      <div class="texto_0 flex" style="background-color: rgba(124, 0, 240, 0); display: flex;  justify-content: center;">
+
+        <div class="cardkpi" style="margin-right: 10px; background-color: rgba(247, 247, 247, 0.24); width: 15%;">
+          <div class="titleKpi">NOMBRE</div>
+          <div id="nomberKpi" class="IndicadorKpi"></div>
+        </div> 
+      
+        <div class="cardkpi" style="margin-left: 10px; background-color: rgba(255, 255, 255, 0.822); width: 15%;">
+          <div class="titleKpi">RUC</div>
+          <div id="rucKpi" class="IndicadorKpi"></div>
+        </div>
+
+        <div class="cardkpi" style="margin-left: 10px; background-color: rgba(255, 255, 255, 0.822); width: 15%;">
+          <div class="titleKpi">Estado</div>
+          <div id="estadodkpi" class="IndicadorKpi"></div>
+        </div>
+
+        <div class="cardkpi" style="margin-left: 10px; background-color: rgba(255, 255, 255, 0.822); width: 15%; font-size: 10px;">
+          <div  class="titleKpi">Actividad</div>
+          <div id="actividadkpi" class="IndicadorKpi"></div>
+        </div>
+      
+      </div>
+
+
+
+      <div class="texto_1" style="background-color: rgba(57, 255, 8, 0)"></div>
+
+      <div class="container_slider">
+        <div id="year-slider"></div>
+      </div>
+
+      <div class="container_input">
+        <div class="change">
+          <form
+            onsubmit="event.preventDefault(); fetchData(); fetchDatap();"
+            class="form_size"
+          >
+            <div class="input-wrapper">
+              <!-- <input
+                type="text"
+                id="valor"
+                name="valor"
+                class="input_name primer-div"
+              /> -->
+
+          
+<input type="text" id="valor" name="valor" ruc="Prubas" class="input_name primer-div" list="sugerencias-list" autocomplete="off" />
+
+          
+              
+
+              <button type="submit" class="segundo-div">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="mynetwork"></div>
+    </div>
+
+   
+    <datalist id="sugerencias-list"></datalist>
+    
+
+    <style>
+
+      .cardkpi{
+background-color: blue;
+      }
+
+    </style>
+
+    <script>
+      function fetchData22() {
+        var valor = document.getElementById('valor').getAttribute('ruc');
+        
+        // Realizar la solicitud HTTP GET al backend para obtener los datos
+        fetch('http://localhost:8000/data_accion?valor=' + valor)
+          .then(response => response.json())
+          .then(data => {
+            var divResultado = document.getElementById("nomberKpi");
+            divResultado.textContent = JSON.stringify(data.data_node.nombre);
+            var divResultado = document.getElementById("rucKpi");
+            divResultado.textContent = JSON.stringify(data.data_node.ruc);
+
+            var divResultado = document.getElementById("actividadkpi");
+            divResultado.textContent = JSON.stringify(data.data_node.actividad);
+
+            var divResultado = document.getElementById("estadodkpi");
+            divResultado.textContent = JSON.stringify(data.data_node.estado);
+            
+
+           
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+  
+      // Llamar a la función fetchData() cuando se envía el formulario
+      document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        fetchData22();
+      });
+    </script>
+
+
+    <script src="http://localhost:8000/static/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  </body>
+</html>

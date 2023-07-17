@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Primer CSS Autocomplete</title>
+    <link rel="stylesheet" href=
+"https://unpkg.com/@primer/css@^18.0.0/dist/primer.css" />
+</head>
+  
+<body>
+    <div class="ml-2">
+        <h1 class="color-fg-success">GeeksforGeeks</h1>
+        <h3>Primer CSS Autocomplete</h3><br />
+    </div>
+    
+    <div class="position-relative">
+        <label for="input-2" class="autocomplete-label-stacked ml-3">
+              Search by Topic
+        </label>
+        <span class="autocomplete-body">
+            <div class="form-control autocomplete-embedded-icon-wrap ml-3" 
+               style="width: 15rem;">
+                <img src=
+                "https://www.svgrepo.com/show/127033/magnifying-glass.svg" 
+                     alt="" width="15rem" height="15rem">
+                <input id="input-2" class="form-control" type="text" 
+                       style="border:none;"/>
+            </div>
+            <ul role="listbox" aria-label="Results" 
+                class="autocomplete-results ml-3" 
+                style="width:15rem;">
+                <li class="autocomplete-item" aria-selected="true">DSA</li>
+                <li class="autocomplete-item">Algorithms</li>
+                <li class="autocomplete-item">Interview</li>
+            </ul>
+        </span>
+    </div>
+</body>
+</html>

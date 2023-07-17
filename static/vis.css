@@ -1,0 +1,288 @@
+
+
+.IndicadorKpi {
+  font-size: 14px;
+
+  text-align: center;
+
+  padding: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+
+.titleKpi {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+
+.cardkpi{
+  display: flex;
+  flex-direction: column;
+  justify-content:  center;
+  column-gap: 20px;
+  text-align: center;
+  background-color: #ffffff5b !important;
+  height: 30p;
+  /* width: 20px; */
+  z-index: 5;
+  font-size: 10px;
+  /*box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.25);
+  */border-radius: 5px;
+
+  backdrop-filter: blur(10px);
+
+}
+
+.texto_0{
+  display: flex;
+  align-items: flex-end;
+}
+
+.noUi-base {
+    opacity: 1;
+  }
+
+  .noUi-base:hover {
+    opacity: 0.9;
+  }
+  
+.noUi-horizontal .noUi-handle {
+  width: 29px;
+  height: 28px;
+  right: -17px;
+  top: -13px;
+  opacity: 1 !important;
+}
+  .noUi-vertical .noUi-handle {
+    width: 1px;
+    height: 34px;
+    right: -6px;
+    top: -18px;
+  }
+  .noUi-handle {
+    border: 0px solid #D9D9D9;
+    border-radius: 30px;
+    background: #ffffff;
+   /* cursor: default;*/
+   box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.25);
+   opacity: 1 !important;
+}
+
+  input,button {
+    all: unset;
+  }
+
+
+  .change{
+    width: 25%;
+    height: 40%;
+    z-index: 1;
+    display: flex;
+    position: relative; /* Asegura que los divs internos respeten el contenedor flex */
+  background-color: rgba(0, 255, 255, 0);
+  justify-content:  flex-end !important;
+  align-items:  center;
+  flex-direction: column;
+
+}
+
+
+@media (max-width: 700px) {
+  .change {
+    width: 100%;
+  }
+}
+  .input-wrapper {
+    display: flex;
+    justify-content:  flex-end !important;
+    background-color: #f10000;
+    width: 100%;
+    height: 100%;
+  }
+  .primer-div {
+    position: absolute; /* Posición absoluta */
+    top: 0;
+    left: 0;
+    width: 100% !important; /* Ocupa todo el ancho del contenedor */
+  }
+  .segundo-div {
+    width: 100%;
+    height: 100%;
+
+    z-index: 5;
+    opacity: 0.4;
+
+  }
+
+  .segundo-div:hover {
+    width: 100%;
+    height: 100%;
+
+    z-index: 5;
+    opacity: 0.9;
+
+  }
+
+  .form_size{
+    height: 90%;
+    padding-right: 7% !important;
+  }
+  
+
+  
+
+.layout{
+height: 650px !important;
+display:grid;
+grid-template-columns: auto ;
+grid-template-rows: 15% auto 3% 13%  ;
+
+position: relative;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0);
+}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.layout {
+  /* Tu código actual */
+  height: 100vh !important;
+  /* Otros estilos si los tienes */
+}
+
+
+#mynetwork {
+position: absolute;
+top: 0px;
+right: 0px;
+bottom: 0px;
+left: 0px;
+}
+
+
+
+  #year-slider {
+    width: 400px;
+    margin-top: 20px;
+
+  }
+
+  .noUi-horizontal{
+    height: 3px !important;
+  }
+
+  
+  .container_input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1000000;
+
+  }
+
+
+  .input_name{
+    width: 100%;
+height: 100%;
+flex-shrink: 0;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.25);
+    text-indent: 20px; 
+    padding-right: 70px;
+    box-sizing: border-box;
+  
+  }
+
+
+
+  .container_slider{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end ;
+    background-color: rgba(255, 0, 0, 0);;
+  }
+
+  .input_name::-webkit-calendar-picker-indicator {
+    background: transparent;
+    display: none;
+  }
+  
+  .input_name::-webkit-datetime-edit {
+    padding: 0;
+  }
+  
+
+  .card{
+ 
+  border-radius: 10px;
+  background: #f10000;
+  overflow: auto;
+  word-wrap: break-word;
+  }
+
+  .box {
+    background: #ffffff;
+   
+    width: 137px;
+    
+    overflow-wrap: break-word;
+    word-break: break-all;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+width: 108px;
+flex-direction: column;
+flex-shrink: 0;
+padding: 20px;
+justify-content: center;
+    
+}
+
+.cabecera{
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+
+}
+ 
+
+div.vis-tooltip {
+inline-size: 150px;
+overflow-wrap: break-word;
+position: absolute;
+visibility: hidden;
+white-space: wrap;
+font-family: verdana;
+font-size: 14px;
+color: #000000;
+background-color: transparent;
+border: none;
+box-shadow: none;
+pointer-events: none;
+z-index: 5;
+}
+
+.noUi-base > div:nth-child(2) {
+display: none !important;
+}
+
+

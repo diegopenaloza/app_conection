@@ -1,0 +1,28 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "static": {
+      "name": "static",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "__pycache__": {
+      "name": "__pycache__",
+      "isOrdered": true,
+      "folders": {
+        "Nota": {
+          "name": "Nota",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        }
+      },
+      "files": {}
+    }
+  },
+  "files": {
+    "NOta": 0
+  }
+}

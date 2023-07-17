@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creación de nodos con Cytoscape.js</title>
+  <style type="text/css">
+    #cy {
+      width: 400px;
+      height: 400px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"></script>
+</head>
+<body>
+  <div id="cy"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/accion').then(response => response.json()).then(data => {
+            var slicedNodes = data.nodes.slice(0, 30);
+           
+            var cy = cytoscape({
+              container: document.getElementById('cy'),
+              elements: slicedNodes.map(node => ({ data: { id: node.id } })),
+              style: [
+                // Estilo de los nodos
+                {
+                  selector: 'node',
+                  style: {
+                    'background-color': 'lightgray',
+                    'label': 'data(id)'
+                  }
+                }
+              ],
+              layout: {
+                name: 'concentric',
+                concentric: function(node) {
+                  return node.degree();
+                },
+                levelWidth: function(nodes) {
+                  return 1;
+                },
+                padding: 10,
+                boundingBox: {
+                  x1: -200,
+                  y1: -200,
+                  w: 400,
+                  h: 400
+                }
+              }
+            });
+        });
+    });
+  </script>
+</body>
+</html>

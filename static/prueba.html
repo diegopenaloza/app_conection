@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic filtering</title>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+  <h1>Dynamic filtering</h1>
+  <label>
+    Filter edges
+    <div>
+      <label>
+        <input type="checkbox" name="edgesFilter" value="friend" checked />
+        Is <span style="color: red">friend</span> of
+      </label>
+    </div>
+  </label>
+  <br />
+  <div id="mynetwork"></div>
+
+  <script>
+    const edgeFilters = document.getElementsByName("edgesFilter");
+
+    function startNetwork(data) {
+      const container = document.getElementById("mynetwork");
+      const options = {};
+      new vis.Network(container, data, options);
+    }
+
+    
+    const nodes = new vis.DataSet([
+      { id: 1, label: "Eric Cartman", age: "kid", gender: "male" },
+      { id: 2, label: "Stan Marsh", age: "kid", gender: "male" },
+      { id: 3, label: "Wendy Testaburger", age: "kid", gender: "female" },
+      { id: 4, label: "Mr Mackey", age: "adult", gender: "male" },
+      { id: 5, label: "Sharon Marsh", age: "adult", gender: "female" },
+    ]);
+
+    const edges = new vis.DataSet([
+      {
+        from: 1,
+        to: 2,
+        relation: "friend",
+        arrows: "to, from",
+        color: { color: "red" },
+      },
+      {
+        from: 1,
+        to: 3,
+        relation: "friend",
+        arrows: "to, from",
+        color: { color: "red" },
+      },
+      {
+        from: 2,
+        to: 3,
+        relation: "friend",
+        arrows: "to, from",
+        color: { color: "red" },
+      },
+    ]);
+
+    
+    const edgesFilter = (edge) => {
+      return edgeFilters[0].checked && edge.relation === "friend";
+    };
+
+    const edgesView = new vis.DataView(edges, { filter: edgesFilter });
+
+    edgeFilters[0].addEventListener("change", () => {
+      edgesView.refresh();
+    });
+
+    startNetwork({ nodes: nodes, edges: edgesView });
+  </script>
+</body>
+</html>

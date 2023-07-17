@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gráfico de nodos con vis.js y Slider</title>
+  <style type="text/css">
+    #mynetwork {
+      width: 800px;
+      height: 400px;
+      border: 1px solid lightgray;
+    }
+    #year-slider {
+      width: 400px;
+      margin-top: 20px;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      text-align: center;
+    }
+  </style>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css" />
+</head>
+<body>
+  <br />
+
+  <div class="container">
+   
+  <div id="year-slider"></div>
+
+  <br />
+  <div id="mynetwork"></div>
+</div>
+  <script type="text/javascript">
+    // Datos de los nodos y las relaciones
+    fetch('/data_accion').then(response => response.json()).then(data => {
+      // Crear los conjuntos de datos de nodos y aristas utilizando los datos obtenidos
+      var nodes = new vis.DataSet(data.nodes.slice(0, 30));
+      var edges = new vis.DataSet(data.edges.slice(0, 30));
+  
+  
+  
+
+    // Opciones del slider
+    var sliderOptions = {
+      start: [2015, 2023],
+      connect: true,
+      step: 1,
+      range: {
+        'min': 2015,
+        'max': 2023
+      },
+      tooltips: [
+        {
+          to: function(value) {
+            return parseInt(value);
+          }
+        },
+        {
+          to: function(value) {
+            return parseInt(value);
+          }
+        }
+      ]
+    };
+
+    // Crear el slider
+    var slider = document.getElementById('year-slider');
+    noUiSlider.create(slider, sliderOptions);
+
+    // Obtener el contenedor del gráfico
+    var container = document.getElementById('mynetwork');
+
+    // Función para filtrar las relaciones según el año seleccionado en el slider
+    function filterEdges() {
+      var selectedYearRange = slider.noUiSlider.get();
+      var selectedYearMin = parseInt(selectedYearRange[0]);
+      var selectedYearMax = parseInt(selectedYearRange[1]);
+
+      var filteredEdges = edges.get({
+        filter: function (item) {
+          var year = new Date(item.Fecha).getFullYear();
+          return year >= selectedYearMin && year <= selectedYearMax;
+        }
+      });
+
+      var filteredNodeIds = new Set();
+      filteredNodeIds.add(1); // Agregar siempre el accionista (ID: 1)
+
+      filteredEdges.forEach(function (edge) {
+        filteredNodeIds.add(edge.from);
+        filteredNodeIds.add(edge.to);
+      });
+
+      var filteredNodes = new vis.DataSet();
+      nodes.forEach(function (node) {
+        if (filteredNodeIds.has(node.id) || (node.label === 'Accionista A' && new Date(node.Fecha).getFullYear() <= 2015)) {
+          filteredNodes.add(node);
+        }
+      });
+
+      var filteredData = {
+        nodes: filteredNodes,
+        edges: filteredEdges
+      };
+
+      network.setData(filteredData);
+
+      // Estilo del accionista cuando no hay empresas en el rango de años seleccionado
+      var accionistaNode = network.body.data.nodes._data[1];
+      if (accionistaNode) {
+        if (!filteredNodeIds.has(2) && !filteredNodeIds.has(3)) {
+          accionistaNode.color = 'rgba(128, 128, 128, 0.5)'; // Color más opaco
+        } else {
+          accionistaNode.color = undefined; // Restaurar color predeterminado
+        }
+        network.body.emitter.emit('_dataChanged');
+      }
+    }
+
+    // Evento que se activa al cambiar el valor del slider
+    slider.noUiSlider.on('change', filterEdges);
+
+    // Crear los datos iniciales del gráfico
+    var initialData = {
+      nodes: nodes,
+      edges: edges
+    };
+
+    // Opciones del gráfico
+    var options = {};
+
+    // Inicializar el gráfico
+    var network = new vis.Network(container, initialData, options);
+  });
+  </script>
+</body>
+</html>
