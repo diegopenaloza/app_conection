@@ -1,0 +1,35 @@
+version: "3"
+volumes:
+  data_neo4j:
+services:
+  neo4j:
+    image: neo4j
+    container_name: my-neo4j-container
+    networks:
+      my-network:
+        ipv4_address: 172.18.0.3
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - data_neo4j:/data
+    environment:
+      - NEO4J_AUTH=neo4j/12345678
+      - NEO4J_dbms_default__database=data
+    user: "neo4j:neo4j"
+
+  app_conection:
+    image:  isaacdiego25/app_conection:1.0.2
+    container_name: conection_container
+    networks:
+      my-network:
+        ipv4_address: 172.18.0.2
+    ports:
+      - "8000:8000"
+
+networks:
+  my-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
